@@ -1,2 +1,1 @@
-# Copy
-frytruyt
+=IFERROR(If(C10="Yes","Not sensitive to WV",Index(WV_TARGET_DATA!$A$3:$I$9244,Match('GENERAL DATA:'!$C$3&"_"&'GENERAL DATA:'!$C$4,WV_TARGET_DATA!$G$3:$G$9244,0),8)),"--MSN/PROGRAM INPUT ERROR--")
