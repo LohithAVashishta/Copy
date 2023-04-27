@@ -1,59 +1,14 @@
-=IFERROR(If(C10="Yes","Not sensitive to WV",Index(WV_TARGET_DATA!$A$3:$I$9244,Match('GENERAL DATA:'!$C$3&"_"&'GENERAL DATA:'!$C$4,WV_TARGET_DATA!$G$3:$G$9244,0),8)),"--MSN/PROGRAM INPUT ERROR--")
 
-function getCellValue(msn, type) {
-  var sheet = SpreadsheetApp.getActiveSheet();
-  var data = sheet.getDataRange().getValues();
+=IFERROR(If(B5="Yes",A31,IF(AND($C$7<=1.2,$C$8>15),"As per Ref. TN X53RP1808817 Issue 2.0 page 73, Dents fulfilling form and nearness criteria up to 2.0mm deep have a negligible effect on static behavior (Stability and strength). Thus the dent is acceptable from a static perspective as the dent depth ("&$C$7&"mm) is less than 2.0mm as allowed per TN X53RP1808817 Issue 2.0 (Generic ADL: Dent #1 justification). Hence above mentioned ADL covers the reported dent without further calculations",IF(AND($C$7>1.2,$C$7<=2,$C$8>15),"As per Ref. TN X53RP1808817 Issue 2.0 page 73, Dents fulfilling form and nearness criteria up to 2.0mm deep have a negligible effect on static behavior (Stability and strength). Thus the dent is acceptable from a static perspective as the dent depth ("&$C$7&"mm) is less than 2.0mm as allowed per TN X53RP1808817 Issue 2.0 (Generic ADL: Dent #1 justification). Hence above mentioned ADL covers the reported dent without further calculations",IF(AND($C$7<=0.5,$C$8<=15),"As per Ref. TN X53RP1906976 Issue 1.0 page 47, “Dents below stiffening elements up to 0.5mm deep have a negligible effect on static behavior (Stability and strength)”. Thus the dent is acceptable from a static perspective as the dent depth ("&$C$7&"mm) is less than 0.5mm as allowed per TN X53RP1906976 Issue 1.0 (Generic ADL: Dent #2 justification). Hence above mentioned ADL covers the reported dent without further calculations.",If($B$6="Longitudinal","Conservatively, the dent is considered as a hole. The overstress coefficient calculation is performed in the longitudinal direction. Plate size is considered as the distance between frames, "&$B$16&" & "&$B$17&" = "&$C$17&"-"&$C$16&" = "&$C$18&"mm
 
-  for (var i = 0; i < data.length; i++) {
-    if (data[i][0] === msn && data[i][1] === type) {
-      return data[i][2];
-    }
-  }
+Overstress coefficient = "&$C$18&" / ("&$C$18&"-"&MAX($C$9:$C$10)&") = "&Round($C$20,2)&"
+(Max. dimension of the dent is considered for calculation)
 
-  return "No match found.";
-}   
+Factored stress to be considered for skin is, σfactored = "&Round($C$15,2)&" X "&Round($C$20,2)&" = "&Round($C$21,2)&"MPa
+RF = "&$C$19&" / "&Round($C$21,2)&" = " &IF($C$22>1,If($C$22="HIGH (>2)",$C$22,Round($C$22,2)),Round($C$22,2)&""),if($B$6="Circumferential/User Defined Plate width","Conservatively, the dent is considered as a hole. The overstress coefficient calculation is performed and plate size is considered as the distance = "&$C$11&"mm
 
-Or
+Overstress coefficient = "&$C$11&" / ("&$C$11&"-"&MAX($C$9:$C$10)&") = "&Round($C$20,2)&"
+(Max. dimension of the dent is considered for calculation)
 
-
-function getWVTargetData(C10, C3, C4) {
-  var targetSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("WV_TARGET_DATA");
-  if (!targetSheet) {
-    throw new Error("Sheet 'WV_TARGET_DATA' not found");
-  }
-  
-  var generalSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("GENERAL DATA:");
-  if (!generalSheet) {
-    throw new Error("Sheet 'GENERAL DATA:' not found");
-  }
-  
-  var targetRange = targetSheet.getRange("A3:I9244");
-  var targetValues = targetRange.getValues();
-  var matchValue = C3 + "_" + C4;
-  var matchRange = targetSheet.getRange("G3:G9244");
-  var matchValues = matchRange.getValues();
-  var matchIndex = matchValues.findIndex(function(row){ return row[0] === matchValue });
-  
-  if (C10 === "Yes") {
-    if (matchIndex !== -1) {
-      return targetValues[matchIndex][7]; // 8th column, index 7
-    } else {
-      return "Not sensitive to WV";
-    }
-  } else {
-    return "--MSN/PROGRAM INPUT ERROR--";
-  }
-}
-
-// Example usage in a UI function:
-function onButtonClick() {
-  var C10 = document.getElementById("C10").value;
-  var C3 = document.getElementById("C3").value;
-  var C4 = document.getElementById("C4").value;
-  
-  var result = getWVTargetData(C10, C3, C4);
-  
-  // Do something with the result, e.g. display it in a div element:
-  document.getElementById("result").innerHTML = result;
-}
-
+Factored stress to be considered for skin is, σfactored = "&Round($C$15,2)&" X "&Round($C$20,2)&" = "&Round($C$21,2)&"MPa
+RF = "&$C$19&" / "&Round($C$21,2)&" = " &IF($C$22>1,If($C$22="HIGH (>2)",$C$22,Round($C$22,2)),Round($C$22,2)&""))))))),"ERORR, PLEASE CHECK INPUT VALUES")
