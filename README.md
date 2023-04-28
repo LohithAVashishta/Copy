@@ -1,14 +1,204 @@
+=IFERROR(If('GENERAL DATA:'!$C$45="Yes",
+	If($C$50="Yes","The affected nominal fasteners were removed and "&$C$48&" was performed at the open holes with nil findings. Also, same 	new/alternate fasteners are installed as per SRM 51-42-11 at the open holes. Due to installation of same new/alternate fasteners, it is considered 	that the shear margins are restored.",
 
-=IFERROR(If(B5="Yes",A31,IF(AND($C$7<=1.2,$C$8>15),"As per Ref. TN X53RP1808817 Issue 2.0 page 73, Dents fulfilling form and nearness criteria up to 2.0mm deep have a negligible effect on static behavior (Stability and strength). Thus the dent is acceptable from a static perspective as the dent depth ("&$C$7&"mm) is less than 2.0mm as allowed per TN X53RP1808817 Issue 2.0 (Generic ADL: Dent #1 justification). Hence above mentioned ADL covers the reported dent without further calculations",IF(AND($C$7>1.2,$C$7<=2,$C$8>15),"As per Ref. TN X53RP1808817 Issue 2.0 page 73, Dents fulfilling form and nearness criteria up to 2.0mm deep have a negligible effect on static behavior (Stability and strength). Thus the dent is acceptable from a static perspective as the dent depth ("&$C$7&"mm) is less than 2.0mm as allowed per TN X53RP1808817 Issue 2.0 (Generic ADL: Dent #1 justification). Hence above mentioned ADL covers the reported dent without further calculations",IF(AND($C$7<=0.5,$C$8<=15),"As per Ref. TN X53RP1906976 Issue 1.0 page 47, “Dents below stiffening elements up to 0.5mm deep have a negligible effect on static behavior (Stability and strength)”. Thus the dent is acceptable from a static perspective as the dent depth ("&$C$7&"mm) is less than 0.5mm as allowed per TN X53RP1906976 Issue 1.0 (Generic ADL: Dent #2 justification). Hence above mentioned ADL covers the reported dent without further calculations.",If($B$6="Longitudinal","Conservatively, the dent is considered as a hole. The overstress coefficient calculation is performed in the longitudinal direction. Plate size is considered as the distance between frames, "&$B$16&" & "&$B$17&" = "&$C$17&"-"&$C$16&" = "&$C$18&"mm
+	If($C$50="No","The affected nominal fasteners "&'GENERAL DATA:'!$C$55&'GENERAL DATA:'!$C$56&'GENERAL DATA:'!$C$57&" (Ø"&'GENERAL DATA:'!$C$59&"mm) 	were removed and "&'GENERAL DATA:'!$C$48&" inspections were performed at all the opened holes and surrounding regions with nil findings. Also, 	repair fasteners "&'GENERAL DATA:'!$D$55&'GENERAL DATA:'!$D$56&'GENERAL DATA:'!$D$57&" (Ø"&'GENERAL DATA:'!$D$59&"mm) + "&'GENERAL DATA:'!$D$60&" 	were installed at all the opened holes.
 
-Overstress coefficient = "&$C$18&" / ("&$C$18&"-"&MAX($C$9:$C$10)&") = "&Round($C$20,2)&"
-(Max. dimension of the dent is considered for calculation)
+	Shear allowable of "&'GENERAL DATA:'!$C$55&'GENERAL DATA:'!$C$56&'GENERAL DATA:'!$C$57&" (Ø"&'GENERAL DATA:'!$C$59&"mm) = "&'GENERAL DATA:'!$C	$62&"daN
+	Shear allowable of "&'GENERAL DATA:'!$D$55&'GENERAL DATA:'!$D$56&'GENERAL DATA:'!$D$57&" (Ø"&'GENERAL DATA:'!$D$59&"mm) = "&'GENERAL DATA:'!$D	$62&"daN
 
-Factored stress to be considered for skin is, σfactored = "&Round($C$15,2)&" X "&Round($C$20,2)&" = "&Round($C$21,2)&"MPa
-RF = "&$C$19&" / "&Round($C$21,2)&" = " &IF($C$22>1,If($C$22="HIGH (>2)",$C$22,Round($C$22,2)),Round($C$22,2)&""),if($B$6="Circumferential/User Defined Plate width","Conservatively, the dent is considered as a hole. The overstress coefficient calculation is performed and plate size is considered as the distance = "&$C$11&"mm
+"&IF('GENERAL DATA:'!$D$62>'GENERAL DATA:'!$C$62,"Hence, the shear margins are considered to be improved.","REPAIR FASTENER WITH LOWER SHEAR ALLOWABLE IS INSTALLED, PLEASE CHECK MAX FASTENER LOAD"))),If('GENERAL DATA:'!$C$45="No",If(C140="Dent","There are no loose, pulled or damaged fasteners at the affected area. Thus, it is considered that the shear margins of the fasteners at the damaged region are not impacted.",If(C140="Rework","It is confirmed that there is no rework performed at the fastener heads. Hence, they are not removed and the shear margins of the fasteners at the damaged region are not impacted",If(C140="Lightning Strike","A/L confirmed there is no lightning strike damage on fasteners. Hence, they are not removed and the shear margins of fasteners are not impacted.",If(C140="Corrosion","It is confirmed that there is no corrosion impact or rework performed at the fasteners. Hence, they are not removed and the shear margins of the fasteners at the damaged region are not impacted",If(C140="Dent + Rework","There are no loose, pulled or damaged fasteners at the affected area and the fasteners are not affected by rework. Thus, it is considered that the shear and bearing margins of the fasteners at the damaged region are not significantly impacted."))))))),"ERROR: PLEASE RE_EVALUATE THE INPUTS")
 
-Overstress coefficient = "&$C$11&" / ("&$C$11&"-"&MAX($C$9:$C$10)&") = "&Round($C$20,2)&"
-(Max. dimension of the dent is considered for calculation)
 
-Factored stress to be considered for skin is, σfactored = "&Round($C$15,2)&" X "&Round($C$20,2)&" = "&Round($C$21,2)&"MPa
-RF = "&$C$19&" / "&Round($C$21,2)&" = " &IF($C$22>1,If($C$22="HIGH (>2)",$C$22,Round($C$22,2)),Round($C$22,2)&""))))))),"ERORR, PLEASE CHECK INPUT VALUES")
+
+
+
+
+
+** Depending on the Fastener type, Second dropdown is populated
+
+=If('GENERAL DATA:'!$C$54=$S$2,{"ASNA0081";"ASNA2001";"ASNA2019";"ASNA2020";"ASNA2026";"ASNA2027";"ASNA2043";"ASNA2049";"ASNA2050";"ASNA2051";"ASNA2352";"ASNA2391";"ASNA2392";"ASNA2585";"ASNA2586";"ASNA2657";"ASNA2657X";"ASNA2657Y"},
+
+IF('GENERAL DATA:'!$C$54=$S$3,{"HL10";"HL1013";"HL1023";"HL1033";"HL11";"HL110";"HL111";"HL112";"HL113";"HL12";"HL123";"HL13";"HL137";"HL141";"HL15";"HL19";"HL21";"HL219";"HL23";"HL233";"HL241";"HL249";"HL259";"HL29";"HL31";"HL327";"HL329";"HL349";"HL37";"HL41";"HL410";"HL411";"HL412";"HL413";"HL49";"HL523";"HL63";"HL645";"HL647";"HL65";"HL67";"HL749";"HL751";"HL753";"HL755";"HL803";"HL845";"HL847";"HL855"},
+
+If('GENERAL DATA:'!$C$54=$S$4,{"EN6050";"EN6100";"EN6114";"EN6115";"EN6127";"EN6128";"EN6129"},
+
+If('GENERAL DATA:'!$C$54=$S$5,{"NSA5350";"NSA5351";"NSA5356";"NSA5357";"NSA5358";"NSA5359";"NSA5406";"NSA5410";"NSA5412";"NSA5414";"NSA5415";"NSA5435";"NSA5476";"NSA5478"},
+
+If('GENERAL DATA:'!$C$54=$S$6,{"NAS1097";"NAS1153";"NAS1154";"NAS1155";"NAS1156";"NAS1241";"NAS1242";"NAS1669";"NAS1750";"NAS1751";"NAS1790";"NAS1921"},
+
+If('GENERAL DATA:'!$C$54=$S$7,{"MS20426";"MS20470"},
+
+If('GENERAL DATA:'!$C$54=$S$8,{"CR3212";"CR3213";"CR3214";"CR3222";"CR3223";"CR3224";"CR3242";"CR3243";"CR3252";"CR3253";"CR3522";"CR3523";"CR3524";"CR3552";"CR3553";"CR3852";"CR3853"},
+
+If('GENERAL DATA:'!$C$54=$S$9,{"HLT335";"HLT411";"HLT43"},
+
+If('GENERAL DATA:'!$C$54=$S$10,{"HST13";"HST413";"HST755"},
+
+If('GENERAL DATA:'!$C$54=$S$11,"LN21215"))))))))))
+
+
+
+
+
+
+
+
+
+
+** Dependnig on the second dropdown Code is populated
+(Cover the below condition in else case)
+=IF(OR('GENERAL DATA:'!$C$55="ASNA2019",'GENERAL DATA:'!$C$55="ASNA2020",'GENERAL DATA:'!$C$55="ASNA2391",'GENERAL DATA:'!$C$55="ASNA2392",'GENERAL DATA:'!$C$55="ASNA2585",'GENERAL DATA:'!$C$55="ASNA2586",'GENERAL DATA:'!$C$55="CR3212",'GENERAL DATA:'!$C$55="CR3213",'GENERAL DATA:'!$C$55="CR3214",'GENERAL DATA:'!$C$55="CR3222",'GENERAL DATA:'!$C$55="CR3223",'GENERAL DATA:'!$C$55="CR3224",'GENERAL DATA:'!$C$55="CR3242",'GENERAL DATA:'!$C$55="CR3243",'GENERAL DATA:'!$C$55="CR3252",'GENERAL DATA:'!$C$55="CR3253",'GENERAL DATA:'!$C$55="CR3852",'GENERAL DATA:'!$C$55="CR3853",'GENERAL DATA:'!$C$55="EN6050",'GENERAL DATA:'!$C$55="EN6100",'GENERAL DATA:'!$C$55="EN6114",'GENERAL DATA:'!$C$55="EN6115",'GENERAL DATA:'!$C$55="HL1013",'GENERAL DATA:'!$C$55="HL1023",'GENERAL DATA:'!$C$55="HL1033",'GENERAL DATA:'!$C$55="HL137",'GENERAL DATA:'!$C$55="HL141",'GENERAL DATA:'!$C$55="HL15",'GENERAL DATA:'!$C$55="HL19",'GENERAL DATA:'!$C$55="HL21",'GENERAL DATA:'!$C$55="HL219",'GENERAL DATA:'!$C$55="HL23",'GENERAL DATA:'!$C$55="HL233",'GENERAL DATA:'!$C$55="HL241",'GENERAL DATA:'!$C$55="HL249",'GENERAL DATA:'!$C$55="HL259",'GENERAL DATA:'!$C$55="HL29",'GENERAL DATA:'!$C$55="HL31",'GENERAL DATA:'!$C$55="HL327",'GENERAL DATA:'!$C$55="HL329",'GENERAL DATA:'!$C$55="HL349",'GENERAL DATA:'!$C$55="HL37",'GENERAL DATA:'!$C$55="HL41",'GENERAL DATA:'!$C$55="HL123",'GENERAL DATA:'!$C$55="HL49",'GENERAL DATA:'!$C$55="HL523",'GENERAL DATA:'!$C$55="HL63",'GENERAL DATA:'!$C$55="HL645",'GENERAL DATA:'!$C$55="HL647",'GENERAL DATA:'!$C$55="HL65",'GENERAL DATA:'!$C$55="HL67",'GENERAL DATA:'!$C$55="HL749",'GENERAL DATA:'!$C$55="HL751",'GENERAL DATA:'!$C$55="HL753",'GENERAL DATA:'!$C$55="HL755",'GENERAL DATA:'!$C$55="HL803",'GENERAL DATA:'!$C$55="HL845",'GENERAL DATA:'!$C$55="HL847",'GENERAL DATA:'!$C$55="HL855",'GENERAL DATA:'!$C$55="HLT335",'GENERAL DATA:'!$C$55="HLT411",'GENERAL DATA:'!$C$55="HLT43",'GENERAL DATA:'!$C$55="HST13",'GENERAL DATA:'!$C$55="HST413",'GENERAL DATA:'!$C$55="HST755",'GENERAL DATA:'!$C$55="NAS1153",'GENERAL DATA:'!$C$55="NAS1154",'GENERAL DATA:'!$C$55="NAS1155",'GENERAL DATA:'!$C$55="NAS1156",'GENERAL DATA:'!$C$55="NAS1669",'GENERAL DATA:'!$C$55="NAS1750",'GENERAL DATA:'!$C$55="NAS1751",'GENERAL DATA:'!$C$55="NAS1790",'GENERAL DATA:'!$C$55="NSA5406",'GENERAL DATA:'!$C$55="NSA5410",'GENERAL DATA:'!$C$55="NSA5435",'GENERAL DATA:'!$C$55="NSA5476"),"-",
+
+IF(OR('GENERAL DATA:'!$C$55="HL10",'GENERAL DATA:'!$C$55="HL11",'GENERAL DATA:'!$C$55="HL110",'GENERAL DATA:'!$C$55="HL111",'GENERAL DATA:'!$C$55="HL112",'GENERAL DATA:'!$C$55="HL113",'GENERAL DATA:'!$C$55="HL12",'GENERAL DATA:'!$C$55="HL13",'GENERAL DATA:'!$C$55="HL410",'GENERAL DATA:'!$C$55="HL411",'GENERAL DATA:'!$C$55="HL412",'GENERAL DATA:'!$C$55="HL413")
+,"VF", 
+
+If(OR('GENERAL DATA:'!$C$55="ASNA2049", 'GENERAL DATA:'!$C$55="ASNA2050",'GENERAL DATA:'!$C$55="ASNA2051"),{"DCJ";"DEJ";"DKJ";"DXJ"},
+
+IF(OR('GENERAL DATA:'!$C$55="NSA5356", 'GENERAL DATA:'!$C$55="NSA5357",'GENERAL DATA:'!$C$55="NSA5358",'GENERAL DATA:'!$C$55="NSA5359"),{"-";"C"},IF(OR('GENERAL DATA:'!$C$55="NSA5350",'GENERAL DATA:'!$C$55="NSA5351"),{"-";"V"},
+
+IF(OR('GENERAL DATA:'!$C$55="EN6127",'GENERAL DATA:'!$C$55="EN6128",'GENERAL DATA:'!$C$55="EN6129"),"C",
+
+IF(OR('GENERAL DATA:'!$C$55="ASNA2657",'GENERAL DATA:'!$C$55="ASNA2657X",'GENERAL DATA:'!$C$55="ASNA2657Y"),{"K";"V"},IF(OR('GENERAL DATA:'!$C$55="NSA5414",'GENERAL DATA:'!$C$55="NSA5415"),{"-";"N";"V"},
+
+IF(OR('GENERAL DATA:'!$C$55="CR3522", 'GENERAL DATA:'!$C$55="CR3523",'GENERAL DATA:'!$C$55="CR3524",'GENERAL DATA:'!$C$55="CR3552",'GENERAL DATA:'!$C$55="CR3553"),{"-";"P"},
+
+IF('GENERAL DATA:'!$C$55="NSA5412",{"DCJ";"DEJ"},
+
+IF('GENERAL DATA:'!$C$55="NAS1921",{"B";"C";"M"},
+
+IF('GENERAL DATA:'!$C$55="LN21215",{"DCA";"DCJ";"DEJ"},
+
+IF('GENERAL DATA:'!$C$55="ASNA2001",{"T";"V"},
+
+IF('GENERAL DATA:'!$C$55="ASNA2352","T",
+
+IF('GENERAL DATA:'!$C$55="ASNA2043",{"-";"A";"X"},
+
+IF('GENERAL DATA:'!$C$55="ASNA0081",{"-";"A"},
+
+IF(OR('GENERAL DATA:'!$C$55="MS20426",'GENERAL DATA:'!$C$55="MS20470"),{"A";"AD";"B";"D";"E";"T"},
+
+IF(OR('GENERAL DATA:'!$C$55="NAS1241",'GENERAL DATA:'!$C$55="NAS1242"),{"AD";"B";"D"},
+
+IF('GENERAL DATA:'!$C$55="NAS1097",{"AD";"B";"D";"KE";"U"},
+
+IF('GENERAL DATA:'!$C$55="ASNA2026",{"-";"BV";"HK";"K";"L";"T";"V"},
+
+IF('GENERAL DATA:'!$C$55="ASNA2027",{"-";"BV";"HK";"K";"T";"V"},
+
+IF('GENERAL DATA:'!$C$55="NSA5478",{"-";"BV";"VHK"},
+
+IF('GENERAL DATA:'!$C$55="NSA5476",{"BV";"VHK"},)))))))))))))))))))))))
+
+
+
+
+
+
+
+
+
+** Depending on the second Dropdown Dash is also populated
+
+
+=If(OR('GENERAL DATA:'!$C$55="HL1013",'GENERAL DATA:'!$C$55="HL123",'GENERAL DATA:'!$C$55="HL15",'GENERAL DATA:'!$C$55="HL19",'GENERAL DATA:'!$C$55="HL21",'GENERAL DATA:'!$C$55="HL23",'GENERAL DATA:'!$C$55="HL233",'GENERAL DATA:'!$C$55="HL29",'GENERAL DATA:'!$C$55="HL31",'GENERAL DATA:'!$C$55="HL327",'GENERAL DATA:'!$C$55="HL349",'GENERAL DATA:'!$C$55="HL49",'GENERAL DATA:'!$C$55="HL523",'GENERAL DATA:'!$C$55="HL645",'GENERAL DATA:'!$C$55="HL647",'GENERAL DATA:'!$C$55="HL755",'GENERAL DATA:'!$C$55="HL803",'GENERAL DATA:'!$C$55="HLT411",'GENERAL DATA:'!$C$55="HLT43",'GENERAL DATA:'!$C$55="HST13",'GENERAL DATA:'!$C$55="HST755"),{5;6;8;10},
+
+If(OR('GENERAL DATA:'!$C$55="HL110",'GENERAL DATA:'!$C$55="HL111",'GENERAL DATA:'!$C$55="HL112",'GENERAL DATA:'!$C$55="HL113",'GENERAL DATA:'!$C$55="HL410",'GENERAL DATA:'!$C$55="HL411",'GENERAL DATA:'!$C$55="HL412",'GENERAL DATA:'!$C$55="HL413"),{6;8;10;12;14;16;18;20},
+
+IF(OR('GENERAL DATA:'!$C$55="HL1023",'GENERAL DATA:'!$C$55="HL1033",'GENERAL DATA:'!$C$55="HL137",'GENERAL DATA:'!$C$55="HL141",'GENERAL DATA:'!$C$55="HL219",'GENERAL DATA:'!$C$55="HL241",'GENERAL DATA:'!$C$55="HL249",'GENERAL DATA:'!$C$55="HL259",'GENERAL DATA:'!$C$55="HL37",'GENERAL DATA:'!$C$55="HL63",'GENERAL DATA:'!$C$55="HL65",'GENERAL DATA:'!$C$55="HL67",'GENERAL DATA:'!$C$55="HL749",'GENERAL DATA:'!$C$55="HL751",'GENERAL DATA:'!$C$55="HL753",'GENERAL DATA:'!$C$55="HL845",'GENERAL DATA:'!$C$55="HL847",'GENERAL DATA:'!$C$55="HL855",'GENERAL DATA:'!$C$55="HST413"),{6;8;10},
+
+IF(OR('GENERAL DATA:'!$C$55="HL10",'GENERAL DATA:'!$C$55="HL11",'GENERAL DATA:'!$C$55="HL12",'GENERAL DATA:'!$C$55="HL13"),{5;6;8;10;12;14;16;18;20},
+
+IF(OR('GENERAL DATA:'!$C$55="EN6114",'GENERAL DATA:'!$C$55="EN6115"),{2;3;"3A";4;5;6;7;8;9;10;12;14;16;18;20;22;"3X";"3AX";"4X";"5X";"6X";"7X";"8X";"9X";"10X";"12X";"14X";"16X";"18X";"20X";"22X";"4Y";"5Y";"6Y";"7Y";"8Y";"9Y";"10Y";"12Y";"14Y";"16Y";"18Y";"20Y";"22Y";"10Z";"12Z";"14Z";"16Z";2;3;"3A";4;20;22;"3X";"3AX";"12X";"14X";"16X";"22X";"16Y";"22Y";"16Z"},
+
+IF(OR('GENERAL DATA:'!$C$55="ASNA2027",'GENERAL DATA:'!$C$55="NSA5350",'GENERAL DATA:'!$C$55="NSA5351",'GENERAL DATA:'!$C$55="NSA5356",'GENERAL DATA:'!$C$55="NSA5357",'GENERAL DATA:'!$C$55="NSA5358",'GENERAL DATA:'!$C$55="NSA5359"),{3;4;5;6;7;8;9;10},
+
+IF(OR('GENERAL DATA:'!$C$55="CR3212",'GENERAL DATA:'!$C$55="CR3213",'GENERAL DATA:'!$C$55="CR3214",'GENERAL DATA:'!$C$55="CR3222",'GENERAL DATA:'!$C$55="CR3223",'GENERAL DATA:'!$C$55="CR3224",'GENERAL DATA:'!$C$55="CR3242",'GENERAL DATA:'!$C$55="CR3243",'GENERAL DATA:'!$C$55="CR3252",'GENERAL DATA:'!$C$55="CR3253",'GENERAL DATA:'!$C$55="CR3522",'GENERAL DATA:'!$C$55="CR3523",'GENERAL DATA:'!$C$55="CR3524",'GENERAL DATA:'!$C$55="CR3552",'GENERAL DATA:'!$C$55="CR3553",'GENERAL DATA:'!$C$55="CR3852",'GENERAL DATA:'!$C$55="CR3853"),{4;5;6;8},
+
+IF(OR('GENERAL DATA:'!$C$55="HL329",'GENERAL DATA:'!$C$55="HL41",'GENERAL DATA:'!$C$55="HLT335"),{4;5;6;8;10},
+
+IF('GENERAL DATA:'!$C$55="NAS1790",{3;"3X";"3Y";4;"4X";"4Y";5;"5X";"5Y";6;"6X";"6Y"},
+
+IF('GENERAL DATA:'!$C$55="ASNA2026",{3;"3A";4;5;6;7;8;9;10},
+
+IF(OR('GENERAL DATA:'!$C$55="NSA5415",'GENERAL DATA:'!$C$55="NSA5414",'GENERAL DATA:'!$C$55="NSA5410",'GENERAL DATA:'!$C$55="ASNA2020",'GENERAL DATA:'!$C$55="LN21215"),{36;40;48},
+
+IF('GENERAL DATA:'!$C$55="NSA5412",{12;24;32;36;40;48;56;64;80;96},
+
+IF(OR('GENERAL DATA:'!$C$55="NSA5406",'GENERAL DATA:'!$C$55="ASNA2019"),{24;32;36;40;48;56},
+
+IF(OR('GENERAL DATA:'!$C$55="NAS1750",'GENERAL DATA:'!$C$55="NAS1751"),{8;3;4;5;6},
+
+IF('GENERAL DATA:'!$C$55="NAS1669",{8;3;4},
+
+IF('GENERAL DATA:'!$C$55="NAS1921",{4;5;6;8},
+
+IF('GENERAL DATA:'!$C$55="NAS1097",{5;6},
+
+IF('GENERAL DATA:'!$C$55="NSA5476",{3;4},
+
+IF('GENERAL DATA:'!$C$55="NSA5478",{3;4;5},
+
+IF('GENERAL DATA:'!$C$55="ASNA2352",{3;4;5;6;7;8},
+
+IF('GENERAL DATA:'!$C$55="ASNA2043",{2;3;4},
+
+IF('GENERAL DATA:'!$C$55="ASNA0081",{2;3;4;5},
+
+IF('GENERAL DATA:'!$C$55="ASNA2391",{2;3;4;5;6;7;8},
+
+IF('GENERAL DATA:'!$C$55="ASNA2392",{2;3;"3A";4;5;6;7;8},
+
+IF('GENERAL DATA:'!$C$55="ASNA2001",{3;4;5},
+
+IF(OR('GENERAL DATA:'!$C$55="ASNA2657",'GENERAL DATA:'!$C$55="ASNA2657X",'GENERAL DATA:'!$C$55="ASNA2657Y"),{3;4},
+
+IF(OR('GENERAL DATA:'!$C$55="MS20426",'GENERAL DATA:'!$C$55="MS20470"),{4;5;6},
+
+IF(OR('GENERAL DATA:'!$C$55="EN6127",'GENERAL DATA:'!$C$55="EN6129"),{5;6;8},
+
+IF('GENERAL DATA:'!$C$55="EN6128",{5;6;8;10;12},
+
+IF(OR('GENERAL DATA:'!$C$55="NAS1155",'GENERAL DATA:'!$C$55="NAS1241",'GENERAL DATA:'!$C$55="NAS1242"),5,
+
+IF('GENERAL DATA:'!$C$55="NAS1153",3,IF('GENERAL DATA:'!$C$55="NAS1154",4,
+
+IF('GENERAL DATA:'!$C$55="NAS1156",6,IF(OR('GENERAL DATA:'!$C$55="ASNA2049",'GENERAL DATA:'!$C$55="ASNA2050"),{32;40;48},
+
+IF('GENERAL DATA:'!$C$55="ASNA2051",{32;36;40;48},
+
+IF('GENERAL DATA:'!$C$55="ASNA2586",{36;40;44;48},
+
+IF('GENERAL DATA:'!$C$55="ASNA2585",{36;40;44;48;52;56},
+
+IF('GENERAL DATA:'!$C$55="NSA5435",{28;44},
+
+IF('GENERAL DATA:'!$C$55="EN6050",{40;50},
+
+IF('GENERAL DATA:'!$C$55="EN6100",{40;50;60;80}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
