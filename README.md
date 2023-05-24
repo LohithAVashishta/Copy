@@ -1,103 +1,52 @@
-+-----------------+
- StandardFile    
-+-----------------+
- - id: Long      
- - fileName: String   
- - standardFileStatus: StandardFileStatus   
- - status: Boolean    
-+-----------------+
- + StandardFile(fileName: String, status: Boolean) 
- + addStandardFileStatus(standardFileStatus: StandardFileStatus): void 
- + getId(): Long 
- + getFileName(): String 
- + getStandardFileStatus(): StandardFileStatus 
- + getStatus(): Boolean 
- + setId(id: Long): void 
- + setFileName(fileName: String): void 
- + setStandardFileStatus(standardFileStatus: StandardFileStatus): void 
- + setStatus(status: Boolean): void 
- + StandardFile() 
- + StandardFile(id: Long, fileName: String, standardFileStatus: StandardFileStatus, status: Boolean) 
++----------------+
+ SyslogStatus   
++----------------+
+ - sectionG: SectionG 
++----------------+
+ + SyslogStatus(name: Names, status: Status, issues: String) 
+ + getSectionG(): SectionG 
+ + setSectionG(sectionG: SectionG): void 
+ + SyslogStatus() 
  + toString(): String 
-+-----------------+
++----------------+
 
-+-----------------------+
- StandardFileStatus    
-+-----------------------+
- - id: Long            
- - sectionB: SectionB  
- - availableDocuments: List<StandardFile> 
-+-----------------------+
- + StandardFileStatus(availableDocuments: List<StandardFile>) 
- + addStandardFile(standardFile: StandardFile): void 
- + getId(): Long 
- + getSectionB(): SectionB 
- + getAvailableDocuments(): List<StandardFile> 
- + setId(id: Long): void 
- + setSectionB(sectionB: SectionB): void 
- + setAvailableDocuments(availableDocuments: List<StandardFile>): void 
- + StandardFileStatus() 
++----------------+
+ TwstftOffset   
++----------------+
+ - sectionC: SectionC 
+ - issues: String 
++----------------+
+ + TwstftOffset(name: Names, value: Double, issues: String) 
+ + addSectionC(sectionC: SectionC): void 
  + toString(): String 
-+-----------------------+
+ + getSectionC(): SectionC 
+ + getIssues(): String 
+ + TwstftOffset() 
+ + setSectionC(sectionC: SectionC): void 
+ + setIssues(issues: String): void 
++----------------+
 
 +------------+
- Station    
+ Uere       
 +------------+
- - id: Long 
- - enable: Boolean 
- - baseMaintenance: BaseMaintenance 
- - name: String 
+ - satellite: String 
+ - chain: String 
 +------------+
- + Station(name: String) 
- + getId(): Long 
- + getEnable(): Boolean 
- + getBaseMaintenance(): BaseMaintenance 
- + getName(): String 
- + setId(id: Long): void 
- + setEnable(enable: Boolean): void 
- + setBaseMaintenance(baseMaintenance: BaseMaintenance): void 
- + setName(name: String): void 
- + Station() 
- + Station(id: Long, enable: Boolean, baseMaintenance: BaseMaintenance, name: String) 
+ + Uere(server: String, location: String, value: Double, chain: String, satellite: String) 
+ + getSatellite(): String 
+ + getChain(): String 
+ + setSatellite(satellite: String): void 
+ + setChain(chain: String): void 
  + toString(): String 
+ + Uere() 
 +------------+
 
-+-------------------+
- StnLookAngle      
-+-------------------+
- - id: Long        
- - location: String 
- - availableTill: LocalDateTime 
- - enable: Boolean 
- - sectionH: SectionH 
-+-------------------+
- + StnLookAngle(location: String, availableTill: LocalDateTime, enable: Boolean) 
- + addSectionH(sectionH: SectionH): void 
- + getId(): Long 
- + getLocation(): String 
- + getAvailableTill(): LocalDateTime 
- + getEnable(): Boolean 
- + getSectionH(): SectionH 
- + setId(id: Long): void 
- + setLocation(location: String): void 
- + setAvailableTill(availableTill: LocalDateTime): void 
- + setEnable(enable: Boolean): void 
- + setSectionH(sectionH: SectionH): void 
- + StnLookAngle() 
++----------------+
+ UserPosition   
++----------------+
+ (No additional attributes) 
++----------------+
+ + UserPosition(server: String, location: String, value: Double) 
  + toString(): String 
-+-------------------+
-
-+-----------------+
- StorageIssues   
-+-----------------+
- - sectionB: SectionB 
- - nsopStorageSet: List<NsopStorageStatus> 
-+-----------------+
- + StorageIssues(nsopStorage: Set<NsopStorageStatus>, issues: String) 
- + addNsopStorageStatus(nsopStorageStatus: NsopStorageStatus): void 
- + getSectionB(): SectionB 
- + getNsopStorageSet(): List<NsopStorageStatus> 
- + setSectionB(sectionB: SectionB): void 
- + setNsopStorageSet(nsopStorageSet: List<NsopStorageStatus>): void 
- + toString(): String 
-+-----------------+
+ + UserPosition() 
++----------------+
